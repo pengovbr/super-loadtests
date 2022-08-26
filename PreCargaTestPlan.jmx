@@ -22,7 +22,7 @@
           </elementProp>
           <elementProp name="host" elementType="Argument">
             <stringProp name="Argument.name">host</stringProp>
-            <stringProp name="Argument.value">meusei.orgao.gov.br</stringProp>
+            <stringProp name="Argument.value">localhost</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">url do SEI</stringProp>
           </elementProp>
@@ -34,7 +34,7 @@
           </elementProp>
           <elementProp name="qtdUnidadesInicial" elementType="Argument">
             <stringProp name="Argument.name">qtdUnidadesInicial</stringProp>
-            <stringProp name="Argument.value">50</stringProp>
+            <stringProp name="Argument.value">20</stringProp>
             <stringProp name="Argument.desc">Sempre multiplo de 5. A qtde de usuarios será esse x  20</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
