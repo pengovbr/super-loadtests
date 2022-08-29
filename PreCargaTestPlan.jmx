@@ -3021,6 +3021,15 @@ vars.put(&quot;numeroSeiUnidade&quot;, &quot;7&quot; + us)</stringProp>
             <stringProp name="RegexExtractor.match_number">1</stringProp>
           </RegexExtractor>
           <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">id_tipo_contato</stringProp>
+            <stringProp name="RegexExtractor.regex">form id=&quot;frmContatoCadastro&quot; method=&quot;post&quot;.*id_tipo_contato=(.*?)&amp;</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default"></stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+          </RegexExtractor>
+          <hashTree/>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1292469871">Alterar Contato</stringProp>
@@ -3300,7 +3309,7 @@ vars.put(&quot;numeroSeiUnidade&quot;, &quot;7&quot; + us)</stringProp>
           <stringProp name="HTTPSampler.port">${portinhola}</stringProp>
           <stringProp name="HTTPSampler.protocol">${scheme}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">iso-8859-1</stringProp>
-          <stringProp name="HTTPSampler.path">/sei/controlador.php?acao=contato_alterar&amp;acao_origem=contato_alterar&amp;id_tipo_contato=7&amp;sta_natureza=J&amp;id_pais=${id_pais}&amp;id_uf=${id_uf}&amp;id_cidade=${id_cidade}&amp;id_pais_passaporte=&amp;bloquear_identificacao=S&amp;bloquear_externo=N&amp;arvore=&amp;infra_sistema=${infra_sistema}&amp;infra_unidade_atual=${infra_unidade_atual}&amp;infra_hash=${infra_hash_contato}</stringProp>
+          <stringProp name="HTTPSampler.path">/sei/controlador.php?acao=contato_alterar&amp;acao_origem=contato_alterar&amp;id_tipo_contato=${id_tipo_contato}&amp;sta_natureza=J&amp;id_pais=${id_pais}&amp;id_uf=${id_uf}&amp;id_cidade=${id_cidade}&amp;id_pais_passaporte=&amp;bloquear_identificacao=S&amp;bloquear_externo=N&amp;arvore=&amp;infra_sistema=${infra_sistema}&amp;infra_unidade_atual=${infra_unidade_atual}&amp;infra_hash=${infra_hash_contato}</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
