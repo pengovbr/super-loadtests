@@ -34,7 +34,7 @@
           </elementProp>
           <elementProp name="qtdUnidadesInicial" elementType="Argument">
             <stringProp name="Argument.name">qtdUnidadesInicial</stringProp>
-            <stringProp name="Argument.value">20</stringProp>
+            <stringProp name="Argument.value">10</stringProp>
             <stringProp name="Argument.desc">Sempre multiplo de 5. A qtde de usuarios será esse x  20</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
