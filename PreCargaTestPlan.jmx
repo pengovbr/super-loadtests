@@ -2557,7 +2557,7 @@ vars.put(&quot;cpf&quot;, l[2]) </stringProp>
 
 us = us.replace(&quot;unidade&quot;, &quot;&quot;)
 
-vars.put(&quot;numeroSeiUnidade&quot;, &quot;7&quot; + us)</stringProp>
+vars.put(&quot;numeroSeiUnidade&quot;, &quot;&quot; + us)</stringProp>
         </JSR223Sampler>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/sei/-527" enabled="true">
@@ -4028,12 +4028,22 @@ vars.put(&quot;cargonome&quot;, cargo)
             <hashTree/>
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="true">
               <stringProp name="RegexExtractor.useHeaders">false</stringProp>
-              <stringProp name="RegexExtractor.refname">hdnUnidades</stringProp>
-              <stringProp name="RegexExtractor.regex">option value=&quot;(.*?)&quot;&gt;(.*?)&lt;/option&gt;</stringProp>
+              <stringProp name="RegexExtractor.refname">hdnUnidadesold</stringProp>
+              <stringProp name="RegexExtractor.regex">option value=&quot;([0-9]+)&quot;(?:.*)&gt;(.*?)&lt;/option&gt;</stringProp>
               <stringProp name="RegexExtractor.template">$1$$2$</stringProp>
               <stringProp name="RegexExtractor.default"></stringProp>
               <stringProp name="RegexExtractor.match_number">-1</stringProp>
             </RegexExtractor>
+            <hashTree/>
+            <XPathExtractor guiclass="XPathExtractorGui" testclass="XPathExtractor" testname="XPath Extractor" enabled="true">
+              <stringProp name="XPathExtractor.default"></stringProp>
+              <stringProp name="XPathExtractor.refname">hdnUnidades</stringProp>
+              <stringProp name="XPathExtractor.matchNumber">-1</stringProp>
+              <stringProp name="XPathExtractor.xpathQuery">//select[@id=&quot;selUnidades&quot;]/option | //select[@id=&quot;selUnidades&quot;]/option/@value</stringProp>
+              <boolProp name="XPathExtractor.validate">false</boolProp>
+              <boolProp name="XPathExtractor.tolerant">true</boolProp>
+              <boolProp name="XPathExtractor.namespace">false</boolProp>
+            </XPathExtractor>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Consultar Unidade ${unidadesigla}" enabled="true">
@@ -4099,10 +4109,11 @@ vars.put(&quot;cargonome&quot;, cargo)
 
 hdnUnidades = &quot;&quot;
 
-for(i=3; i&lt;=a; i++){
+for(i=1; i&lt;=a; i=i+2){
 
-    idunidade = vars.get(&quot;hdnUnidades_&quot; + i + &quot;_g1&quot;)
-    siglanome = vars.get(&quot;hdnUnidades_&quot; + i + &quot;_g2&quot;)
+    j=i+1
+    idunidade = vars.get(&quot;hdnUnidades_&quot; + j )
+    siglanome = vars.get(&quot;hdnUnidades_&quot; + i )
 
     hdnUnidades = hdnUnidades + &quot;${idunidade}±${siglanome}¥&quot;
     
