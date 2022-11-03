@@ -3032,7 +3032,7 @@ vars.put(&quot;numeroSeiUnidade&quot;, &quot;&quot; + us)</stringProp>
           <hashTree/>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="-1292469871">Alterar Contato</stringProp>
+              <stringProp name="75449377">Nome:</stringProp>
             </collectionProp>
             <stringProp name="Assertion.custom_message"></stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
