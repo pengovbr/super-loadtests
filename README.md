@@ -1,8 +1,14 @@
 # Super Load Tests
 
+!!!
+Atenção essa documentacao está obsoleta
+Enquanto não implementarmos as issues #8 e #9 com a documentação e orientações você terá que ler o teste no jmeter pra entender o q ele faz. Ao todo são 5 cenarios de teste e um teste de carga separado apenas para testar assets (gif, jpeg, js, css, etc) para quem usa algum componente de cache no SEI
+Além disso há um teste de pré-carga que prepara o ambiente antes de iniciar os testes de carga.
+!!!
+
 Nesta primeira versão dos testes de carga iremos disponibilizar em jmeter com 1 carga preparatória e 2 cenários iniciais.
 
-O teste foi feito baseando-se no [sei-docker](https://github.com/spbgovbr/sei-docker). SEI4.0.7. Mas evoluirá para atender ao SEI e Super.
+O teste foi feito baseando-se no [sei-docker](https://github.com/spbgovbr/sei-docker). SEI4.0.8. Mas evoluirá para atender ao SEI e Super.
 
 
 ## Cenários Implementados
@@ -49,6 +55,9 @@ Sendo assim vai criar processos em varias unidades.
 	- Seleciona aleatoriamente um usuário da unidade daquele processo
 	- pesquisa pelo número do protocolo
 	- para cada documento do protocolo, pesquisa individualmente usando o seu número
+
+- **Cenários 3 a 5**
+	- carece de documentação. Favor usar a branch SEI4
 	
 
 
