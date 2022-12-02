@@ -1,112 +1,27 @@
 # Super Load Tests
 
-!!!
-Atenção essa documentacao está obsoleta
-Enquanto não implementarmos as issues #8 e #9 com a documentação e orientações você terá que ler o teste no jmeter pra entender o q ele faz. Ao todo são 5 cenarios de teste e um teste de carga separado apenas para testar assets (gif, jpeg, js, css, etc) para quem usa algum componente de cache no SEI
-Além disso há um teste de pré-carga que prepara o ambiente antes de iniciar os testes de carga.
-!!!
+Projeto com scripts no jmeter para testes de carga e stress no Super.
 
-Nesta primeira versão dos testes de carga iremos disponibilizar em jmeter com 1 carga preparatória e 2 cenários iniciais.
+Inicialmente focamos para atender demanda específica no SEI4, portanto os testes disponibilizados até então suportam apenas essa plataforma.
 
-O teste foi feito baseando-se no [sei-docker](https://github.com/spbgovbr/sei-docker). SEI4.0.8. Mas evoluirá para atender ao SEI e Super.
+O review e adpatação para o Super somente será feito após a priorização das issues  #8, #9 e #10
 
+Em caso de necessidade e com conhecimento mediano em jmeter você consegue rapidamente isolar os assets e rodar os testes no Super.
 
-## Cenários Implementados
+## Divisão do Projeto
 
+O projeto atualmente está dividido em 3 partes independentes. Ao entrar em cada pasta existe um README específico:
 
-### Carga Inicial Preparatória
-
-- Cria unidades (unidade00001, unidade00002, etc). A quantidade é informada no início do teste
-- Cria usuários (usuario00001, etc). A quantidae é 20x a de unidades
-- Cadastra Hierarquia das Unidades
-- Cadastra as Permissoes de Usuários - Cada unidade vai ter 20 usuários
-- Configura Endereço das Unidades
-- Configura Num SEI p Unidades
-- Configura Cargos de Assinatura para as Novas Unidades
-
-
-### Teste de Carga
-
-Cada cenário deve rodar simultaneamente.
-Defina por cenário a qtde de usuarios simultaneos e as repetições dos cenários
-O teste vai randomizar uma unidade e usuário para fazer o flood a cada repetição das threads.
-Sendo assim vai criar processos em varias unidades.
-
-- **Cenario 1**
+- **testes de carga e stress:** 
+	aqui ficam os testes em jmeter para fazer carga e stress nos ambientes
 	
-	- Login
-	- Novo Processo (tipo aleatorio)
-	- Assunto aleatorio
-	- Contato Fixo
-	- Loop Cadastra Docs Internos
-		- cria novo doc com tipo randomizado pre informado 
-		- salva doc
-		- edita 1a vez doc com centenas de linhas aleatorias
-		- edita 2a vez doc com frase aleatoria para servir de pesquisa posterior com solr
-		- assina o documento
-	- Loop Cadastra Docs Externos
-		- cria doc externo do tipo abaixo assinado
-		- randomiza o upload com algum pdf q esteja disponivel no dir upload_files
-		- salva
+- **testes de monitoramento:**
+	aqui ficam testes em jmeter que ao implantar o sistema e nos depararmos com alguma lentidão foram necessários para o profissional da sustentação identificar possíveis gargalos relacionados a nó de aplicação ou ingress
 
-- **Cenario 2**
+	- **monitoramento-cookies-nagios:**
+		esse teste faz inicialmente um apanhado dos cookies ofertados pela url com intuito de levantar os possíveis nós(ou pods) de entrada possíveis. Depois disso faz uma chamado ao sistema, logando com o usuário robô disponibilizado, e faz algumas operações simples para informar se o sistema está no ar.
+		Segue junto um script para ser disponibilizado no Nagios para monitorar a disponiblidade
 	
-	- Seleciona aleatoriamente um processo cadastrado anteriormente
-	- Seleciona aleatoriamente um usuário da unidade daquele processo
-	- pesquisa pelo número do protocolo
-	- para cada documento do protocolo, pesquisa individualmente usando o seu número
-
-- **Cenários 3 a 5**
-	- carece de documentação. Favor usar a branch SEI4
 	
-
-
-
-## Instruções Básicas
-
-### Pré-teste
-
-1. Suba o SEI, pode ser conforme em:  
-	https://github.com/spbgovbr/sei-docker
-
-2. Abra o teste PreCarga
-
-3. Informe em User Defined Variables de acordo com o seu ambiente
-
-4. Rode o pré-teste. Esse teste irá fazer a pré carga no ambiente com as unidades, usuários e configs necessárias para o teste rodar
-
-5. O pré-teste é feito para rodar apenas 1x, mas pode rodar novamente se quiser, ele já está preparado para tratar caso já exista cadastro prévio
-
-6. Caso o teste falhe, por alguma falha na infra, basta rodar novamente que ao rodar ele irá completar o cadastro. O teste de pré-carga deve chegar até o final, caso contrário houve algo errado
-
-7. Vc sabe q ele chegou ao final olhando o "View Results Tree" da última thread. Ela deve finalizar sem requisicoes vemelhas
-
-8. Agora q vc rodou o pré-teste pode rodar o teste de carga de várias formas analisando a carga
- 
-
-### Teste de carga
-
-1. Informe em User Defined Variables de acordo com o seu ambiente e tb o que foi feito no pré-teste
-
-2. Para cada cenário informe a quantidade de threads desejadas e tb as repetições. Observe que o cenário 2 deve entrar em ação apenas um tempo depois do cenário 1. Para isso vc pode usar o startup delay do ThreadGroup
-
-3. Aqui vc pode rodar usando a interface jmeter ou caso a carga seja alta deve rodar usando linha de comando
-
-4. Os resultados devem ser coletados e analisados a luz da filosofia jmeter e tb levando em consideração o que vc deseja medir
-
-
-## Futuras implementações
-
-Está previsto implementarmos mais cenários e tb outras funcionalidades. Porém as mesmas ainda não foram priorizadas internamente.
-
-Entre elas:
-- Flood de Pesquisa usando Solr
-- Blocos de Assinatura e Assinatura em unidades externas ao processo
-- Tramitação de processo para outra unidade e conclusão
-- Humanização dos testes para definir melhor quantos usuários o ambiente aguenta
-
-
-## Dúvidas ou Sugestões
-
-Pode usar a parte de issue aqui do projeto no github.
-Contribuição pode enviar pull-requests
+	- **monitoramento-nodes-ingress:**
+		nesse teste você informa os possíveis nós físicos onde reside seus ingress kubernetes (ou seus balanceadores cattle, ou até mesmo as vms internas q ofertam o tráfego http ou https para o sistema) e dispara uma chamada independente para cada um deles testando o login e pesquisa simples de processo e documentos. A execução do teste em loop vai mostrar possíveis erros aleatórios que possam acontecer e listá-los para análise
