@@ -2,3 +2,6 @@
 **/.DS_Store
 assets/runtimeassets/cadProc/unidade*
 jmeter.log
+**/jmeter.log
+testes-de-monitoramento/monitoramento-cookies-nagios/errors.txt
+testes-de-monitoramento/monitoramento-cookies-nagios/assets/*

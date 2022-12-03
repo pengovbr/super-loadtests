@@ -40,7 +40,7 @@
           </elementProp>
           <elementProp name="userPass" elementType="Argument">
             <stringProp name="Argument.name">userPass</stringProp>
-            <stringProp name="Argument.value">informsenha</stringProp>
+            <stringProp name="Argument.value">informepass</stringProp>
             <stringProp name="Argument.desc">senha do usuario</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -178,7 +178,7 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.num_threads">10</stringProp>
         <stringProp name="ThreadGroup.ramp_time">30</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">3600</stringProp>
@@ -189,7 +189,7 @@
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
           <stringProp name="delimiter">,</stringProp>
           <stringProp name="fileEncoding"></stringProp>
-          <stringProp name="filename">meusips.csv</stringProp>
+          <stringProp name="filename">assets/meusips.csv</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
           <boolProp name="quotedData">false</boolProp>
           <boolProp name="recycle">true</boolProp>

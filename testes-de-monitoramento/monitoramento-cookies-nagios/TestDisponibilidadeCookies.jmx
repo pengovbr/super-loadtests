@@ -34,13 +34,13 @@
           </elementProp>
           <elementProp name="userLogin" elementType="Argument">
             <stringProp name="Argument.name">userLogin</stringProp>
-            <stringProp name="Argument.value">user</stringProp>
+            <stringProp name="Argument.value">informeuser</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">login do usuario robo a testar</stringProp>
           </elementProp>
           <elementProp name="userPass" elementType="Argument">
             <stringProp name="Argument.name">userPass</stringProp>
-            <stringProp name="Argument.value">pass</stringProp>
+            <stringProp name="Argument.value">informesenha</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">senha do usuario robo</stringProp>
           </elementProp>
@@ -155,35 +155,6 @@
         <stringProp name="HTTPSampler.connect_timeout"></stringProp>
         <stringProp name="HTTPSampler.response_timeout"></stringProp>
       </ConfigTestElement>
-      <hashTree/>
-      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="false">
-        <collectionProp name="HeaderManager.headers"/>
-      </HeaderManager>
-      <hashTree/>
-      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="false">
-        <collectionProp name="CookieManager.cookies">
-          <elementProp name="${cookie_name}" elementType="Cookie" testname="${cookie_name}">
-            <stringProp name="Cookie.value">${mycookie}</stringProp>
-            <stringProp name="Cookie.domain"></stringProp>
-            <stringProp name="Cookie.path"></stringProp>
-            <boolProp name="Cookie.secure">false</boolProp>
-            <longProp name="Cookie.expires">0</longProp>
-            <boolProp name="Cookie.path_specified">true</boolProp>
-            <boolProp name="Cookie.domain_specified">true</boolProp>
-          </elementProp>
-          <elementProp name="TESTE1" elementType="Cookie" testname="TESTE1">
-            <stringProp name="Cookie.value">teste</stringProp>
-            <stringProp name="Cookie.domain"></stringProp>
-            <stringProp name="Cookie.path"></stringProp>
-            <boolProp name="Cookie.secure">false</boolProp>
-            <longProp name="Cookie.expires">0</longProp>
-            <boolProp name="Cookie.path_specified">true</boolProp>
-            <boolProp name="Cookie.domain_specified">true</boolProp>
-          </elementProp>
-        </collectionProp>
-        <boolProp name="CookieManager.clearEachIteration">false</boolProp>
-        <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
-      </CookieManager>
       <hashTree/>
       <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="setUp Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
@@ -398,7 +369,7 @@ file.append(&quot;ok&quot;)
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">2</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.num_threads">10</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration">1200</stringProp>
