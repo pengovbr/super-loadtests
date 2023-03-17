@@ -1,20 +1,30 @@
 # Super Load Tests
 
-!!!
-Atenção essa documentacao está obsoleta
-Enquanto não implementarmos as issues #8 e #9 com a documentação e orientações você terá que ler o teste no jmeter pra entender o q ele faz. Ao todo são 5 cenarios de teste e um teste de carga separado apenas para testar assets (gif, jpeg, js, css, etc) para quem usa algum componente de cache no SEI
-Além disso há um teste de pré-carga que prepara o ambiente antes de iniciar os testes de carga.
-!!!
+## Divisão
 
-Nesta primeira versão dos testes de carga iremos disponibilizar em jmeter com 1 carga preparatória e 2 cenários iniciais.
+Temos 3 Planos de Teste:
 
-O teste foi feito baseando-se no [sei-docker](https://github.com/spbgovbr/sei-docker). SEI4.0.8. Mas evoluirá para atender ao SEI e Super.
+- **CargaTestPlan-Assets.jmx**
+
+	Ignore-o pois vai ter que aguardar definição entre SEI vs Super
+
+- **CargaTestPlan.jmx**
+
+	Teste de Carga com 6 Cenários. Obrigatório rodar o teste de PreCarga antes
+
+- **PreCargaTestPlan.jmx**
+
+	Teste preparatório que vai fazer uma carga inicial no ambiente com usuários, unidades e configurar o acesso para que o teste de carga seja possível
 
 
 ## Cenários Implementados
 
+Os cenários foram escolhidos analisando as operações mais usadas e também aquelas que requerem maior esforço do sistema para gerar um resultado (caso da geracao de pdf).
+Caso identifiquem necessidade de novos cenários nos avisem através das issues do projeto no github.
 
 ### Carga Inicial Preparatória
+
+Arquivo jmeter: PreCargaTestPlan.jmx
 
 - Cria unidades (unidade00001, unidade00002, etc). A quantidade é informada no início do teste
 - Cria usuários (usuario00001, etc). A quantidae é 20x a de unidades
@@ -24,15 +34,21 @@ O teste foi feito baseando-se no [sei-docker](https://github.com/spbgovbr/sei-do
 - Configura Num SEI p Unidades
 - Configura Cargos de Assinatura para as Novas Unidades
 
+**Atenção, ao rodar o teste de carga (depois do pré-teste) o jmeter vai usar como senha o nome dos usuários criados (usuario00001, usuario00002, etc), portanto ao rodar o teste, desligue seu AD/Ldap ou crie em um AD/Ldap alternativo para esses usuários com as respectivas senhas**
+
+**Atenção, o teste vai criar unidades e usuários com a nomenclatua acima na base de dados. Tenha isso em mente**
+
 
 ### Teste de Carga
+
+Arquivo jmeter: CargaTestPlan.jmx
 
 Cada cenário deve rodar simultaneamente.
 Defina por cenário a qtde de usuarios simultaneos e as repetições dos cenários
 O teste vai randomizar uma unidade e usuário para fazer o flood a cada repetição das threads.
 Sendo assim vai criar processos em varias unidades.
 
-- **Cenario 1**
+- **Cenario 1 - Cadastrar Processos e Docs Internos e Externos**
 	
 	- Login
 	- Novo Processo (tipo aleatorio)
@@ -48,65 +64,127 @@ Sendo assim vai criar processos em varias unidades.
 		- cria doc externo do tipo abaixo assinado
 		- randomiza o upload com algum pdf q esteja disponivel no dir upload_files
 		- salva
-
-- **Cenario 2**
 	
+	Diversos aspectos sao definidos via config file, por ex, vc pode informar qts docs internos e externos cada proc vai ter. Você também pode definir no diretório vários pdfs com tamanhos diferentes para upload, o teste vai aleatorizar entre eles para criar os documentos anexos.
+		
+	Este cenário gera insumo para os cenários posteriores.
+
+- **Cenario 2 - Pesquisar Proc e Docs pelo Número**
+	
+	Inicia 180s após o primeiro. Vc pode definir esse delay.
+	
+	- Login
 	- Seleciona aleatoriamente um processo cadastrado anteriormente
 	- Seleciona aleatoriamente um usuário da unidade daquele processo
 	- pesquisa pelo número do protocolo
 	- para cada documento do protocolo, pesquisa individualmente usando o seu número
 
-- **Cenários 3 a 5**
-	- carece de documentação. Favor usar a branch SEI4
-	
+- **Cenários 3 - Atribuir Processo**
 
+	- Login com usuario aleatorio
+	- Pesquisa processo cadastrado anteriormente
+	- Atribui o processo de forma aleatória
+
+- **Cenário 4 - Gerar PDF**
+
+	- Login com usuario aleatorio
+	- Pesquisa processo cadastrado anteriormente
+	- Gera o PDF desse processo.
+	Cuidado com exagero no teste. Essa operação gera forte gargalo
+
+- **Cenário 005 - Anotação Registrar**
+
+	- Login com usuario aleatorio
+	- Pesquisa processo cadastrado anteriormente
+	- Efetua uma anotação no processo
+
+- **Cenário 006 - Pesquisar via Solr**
+
+	- Login  com usuario aleatorio
+	- Seleciona aleatoriamente um processo cadastrado anteriormente
+	- Para cada doc interno:
+		- Pesquisa pelo termo (texto dentro do documento)
+
+## Parâmetros do Teste
+
+Estamos adotando a execução dos testes calibrando o jmeter usando um arquivo de configuração. 
+Vc deve subir o jmeter com essas propriedades ingeridas.
+Ex.: ao subir o jmeter ou rodar o teste vc deve informar esse arquivo de propriedades:
+```
+jmeter -p testProperties.prop
+```
+Nesse arquivo vai ficar todos os parametros do teste, por ex, qual o ambiente vai apontar, usuário de admin para carga inicial, qde de usuarios simultaneamente rodando o cenário1, qtd de users rodando o cenario2, qual a janela de tempo randômico que um usuário espera depois de cadastrar um doc, etc
+
+Vc pode rodar o teste bypassando esse arquivo, nesse caso use dentro do teste o primeiro elemento jmeter chamado "user Defined Variables" para cada plano. Para facilidade recomendamos fortemente o uso do arquivo testProperties.prop
+
+Faça uma leitura do arquivo testProperties.prop.example pois lá tem as informações de cada parâmetro. O sucesso de um bom teste passa por uma boa calibragem. Você consegue facilmente derrubar qualquer SEI ou SUPER, mas na vida real os usuários pensam de forma humana, com espaço de tempo entre uma requisição e outra.
 
 
 ## Instruções Básicas
 
 ### Pré-teste
 
-1. Suba o SEI, pode ser conforme em:  
-	https://github.com/spbgovbr/sei-docker
+1. Vá até a pasta testes-de-carga-stress
 
-2. Abra o teste PreCarga
+2. Copie o arquivo testProperties.prop.example para testProperties.prop
 
-3. Informe em User Defined Variables de acordo com o seu ambiente
+4. Abra o arquivo e altere os parâmetros de conexão desejados
 
-4. Rode o pré-teste. Esse teste irá fazer a pré carga no ambiente com as unidades, usuários e configs necessárias para o teste rodar
+5. Abra o teste PreCarga (não esqueça que ao subir o jmeter passe o arquivo properties ingestando-o)
 
-5. O pré-teste é feito para rodar apenas 1x, mas pode rodar novamente se quiser, ele já está preparado para tratar caso já exista cadastro prévio
+7. Rode o pré-teste. Esse teste irá fazer a pré carga no ambiente com as unidades, usuários e configs necessárias para o teste rodar
 
-6. Caso o teste falhe, por alguma falha na infra, basta rodar novamente que ao rodar ele irá completar o cadastro. O teste de pré-carga deve chegar até o final, caso contrário houve algo errado
+8. O pré-teste é feito para rodar apenas 1x, mas pode rodar novamente se quiser, ele já está preparado para tratar caso já exista cadastro prévio
 
-7. Vc sabe q ele chegou ao final olhando o "View Results Tree" da última thread. Ela deve finalizar sem requisicoes vemelhas
+9. Caso o teste falhe, por alguma falha na infra, basta rodar novamente que ao rodar ele irá completar o cadastro. O teste de pré-carga deve chegar até o final, caso contrário o teste de carga não vai funcionar adequadamente
 
-8. Agora q vc rodou o pré-teste pode rodar o teste de carga de várias formas analisando a carga
+10. Vc sabe q ele chegou ao final olhando o "View Results Tree" da última thread. Ela deve finalizar sem requisicoes vemelhas
+
+11. Agora q vc rodou o pré-teste pode rodar o teste de carga de várias formas analisando a carga
  
 
 ### Teste de carga
 
-1. Informe em User Defined Variables de acordo com o seu ambiente e tb o que foi feito no pré-teste
+1. Abra o jmeter com o arquivo .prop ingestado (ver acima)
 
-2. Para cada cenário informe a quantidade de threads desejadas e tb as repetições. Observe que o cenário 2 deve entrar em ação apenas um tempo depois do cenário 1. Para isso vc pode usar o startup delay do ThreadGroup
+2. Na primeira execução vamos rodar bem leve apenas para certificar que o teste está rodando no seu ambiente, portanto pode usar a interface gráfica
 
-3. Aqui vc pode rodar usando a interface jmeter ou caso a carga seja alta deve rodar usando linha de comando
+3. Rode o teste. O cenário1 vai iniciar e depois do delay definido no plano de teste cada novo cenário vai iniciar no seu tempo
 
-4. Os resultados devem ser coletados e analisados a luz da filosofia jmeter e tb levando em consideração o que vc deseja medir
+4. Para cada cenário acompanhe o resultado no componente "View Results Tree" ou "Summary Report"
+
+5. Vai rodar por alguns minutos e ao final o teste deve finalizar sem erro. Caso haja erro tem que analisar a causa
+
+6. Agora que passou na execução leve vamos jogar uma carga maior e ir analisando os resultados pelos relatórios. O teste de carga na vera não deve ser rodado usando a interface do jmeter. Você deve rodar usando a linha de comando. Aspectos como memória, largura de banda não serão discutidos aqui, portanto faça uma pesquisa prévia em jmeter
+
+7. Defina os parametros no arquivo de propriedade (aumentando um pouco a carga)
+
+8. Rode o jmeter via linha de comando gerando um relatório web pós execução
+	``` 
+	jmeter -n -t CargaTestPlan.jmx -p testProperties.prop -l resultado.csv -e -o resultadoweb
+	```
+	
+	Importante: defina a quantidade de memória que o jmeter vai usar. Caso você aumente a carga precisará aumentar a memória destinada ao jmeter.
+
+9. Enquanto o teste roda navegue em um browser pelo sistema e veja a responsividade geral
+ 
+10. O arquivo resultado.csv vai conter as estatísticas do teste
+
+11. No diretório resultadoweb será criado um relatorio detalhado com as estatísticas levantadas durante o teste
+
+12. Caso o teste precise ser interrompido no meio do caminho, pode gerar o relatório com esse comando:
+	```
+	jmeter -e -g resultado.csv -o resultadoweb
+	```
+ 
+13. Os resultados devem ser coletados e analisados a luz da filosofia jmeter e tb levando em consideração o que vc deseja medir
 
 
-## Futuras implementações
 
-Está previsto implementarmos mais cenários e tb outras funcionalidades. Porém as mesmas ainda não foram priorizadas internamente.
-
-Entre elas:
-- Flood de Pesquisa usando Solr
-- Blocos de Assinatura e Assinatura em unidades externas ao processo
-- Tramitação de processo para outra unidade e conclusão
-- Humanização dos testes para definir melhor quantos usuários o ambiente aguenta
 
 
 ## Dúvidas ou Sugestões
 
 Pode usar a parte de issue aqui do projeto no github.
 Contribuição pode enviar pull-requests
+
