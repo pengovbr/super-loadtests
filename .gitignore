@@ -1,6 +1,7 @@
 .DS_Store
 **/.DS_Store
-assets/runtimeassets/cadProc/unidade*
+**/testProperties.prop
+**/assets/runtimeassets/cadProc/unidade*
 jmeter.log
 **/jmeter.log
 testes-de-monitoramento/monitoramento-cookies-nagios/errors.txt

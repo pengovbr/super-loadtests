@@ -16,36 +16,36 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="scheme" elementType="Argument">
             <stringProp name="Argument.name">scheme</stringProp>
-            <stringProp name="Argument.value">https</stringProp>
+            <stringProp name="Argument.value">${__P(scheme, https)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">http ou https</stringProp>
           </elementProp>
           <elementProp name="host" elementType="Argument">
             <stringProp name="Argument.name">host</stringProp>
-            <stringProp name="Argument.value">localhost</stringProp>
+            <stringProp name="Argument.value">${__P(host, localhost)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">url do SEI</stringProp>
           </elementProp>
           <elementProp name="portinhola" elementType="Argument">
             <stringProp name="Argument.name">portinhola</stringProp>
-            <stringProp name="Argument.value">443</stringProp>
+            <stringProp name="Argument.value">${__P(portinhola, 443)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">porta</stringProp>
           </elementProp>
           <elementProp name="qtdUnidadesInicial" elementType="Argument">
             <stringProp name="Argument.name">qtdUnidadesInicial</stringProp>
-            <stringProp name="Argument.value">10</stringProp>
+            <stringProp name="Argument.value">${__P(qtdUnidadesInicial, 10)}</stringProp>
             <stringProp name="Argument.desc">Sempre multiplo de 5. A qtde de usuarios será esse x  20</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="usuarioAdminLogin" elementType="Argument">
             <stringProp name="Argument.name">usuarioAdminLogin</stringProp>
-            <stringProp name="Argument.value">teste</stringProp>
+            <stringProp name="Argument.value">${__P(usuarioAdminLogin, teste)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="usuarioAdminSenha" elementType="Argument">
             <stringProp name="Argument.name">usuarioAdminSenha</stringProp>
-            <stringProp name="Argument.value">teste</stringProp>
+            <stringProp name="Argument.value">${__P(usuarioAdminSenha, teste)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="siglaOrgaoSistema" elementType="Argument">
@@ -3975,7 +3975,7 @@ vars.put(&quot;cargonome&quot;, cargo)
               </collectionProp>
             </elementProp>
             <stringProp name="HTTPSampler.domain">${host}</stringProp>
-            <stringProp name="HTTPSampler.port">${host}</stringProp>
+            <stringProp name="HTTPSampler.port">${portinhola}</stringProp>
             <stringProp name="HTTPSampler.protocol">${scheme}</stringProp>
             <stringProp name="HTTPSampler.contentEncoding">iso-8859-1</stringProp>
             <stringProp name="HTTPSampler.path">/sei/controlador.php</stringProp>
