@@ -9,15 +9,17 @@ Temos 3 Planos de Teste:
 	Ignore-o pois vai ter que aguardar definição entre SEI vs Super
 
 - **CargaTestPlan.jmx**
+
 	Teste de Carga com 6 Cenários. Obrigatório rodar o teste de PreCarga antes
 
 - **PreCargaTestPlan.jmx**
+
 	Teste preparatório que vai fazer uma carga inicial no ambiente com usuários, unidades e configurar o acesso para que o teste de carga seja possível
 
 
 ## Cenários Implementados
 
-Os cenários foram escolhidos analisando as operações mais usadas e também aquelas que requerem maior esforço do sistema para gerar um resultado (caso da geracao de pdf)
+Os cenários foram escolhidos analisando as operações mais usadas e também aquelas que requerem maior esforço do sistema para gerar um resultado (caso da geracao de pdf).
 Caso identifiquem necessidade de novos cenários nos avisem através das issues do projeto no github.
 
 ### Carga Inicial Preparatória
@@ -32,7 +34,9 @@ Arquivo jmeter: PreCargaTestPlan.jmx
 - Configura Num SEI p Unidades
 - Configura Cargos de Assinatura para as Novas Unidades
 
-**Atenção, ao rodar o teste de carga (depois do pré-teste) o jmeter vai usar como senha o nome dos usuários criados (usuario00001, usuario00002, etc), portanto ao rodar o teste, desligue seu AD/Ldap ou crie em um AD/Ldap alternativo esses usuários com as respectivas senhas**
+**Atenção, ao rodar o teste de carga (depois do pré-teste) o jmeter vai usar como senha o nome dos usuários criados (usuario00001, usuario00002, etc), portanto ao rodar o teste, desligue seu AD/Ldap ou crie em um AD/Ldap alternativo para esses usuários com as respectivas senhas**
+
+**Atenção, o teste vai criar unidades e usuários com a nomenclatua acima na base de dados. Tenha isso em mente**
 
 
 ### Teste de Carga
@@ -85,7 +89,7 @@ Sendo assim vai criar processos em varias unidades.
 
 	- Login com usuario aleatorio
 	- Pesquisa processo cadastrado anteriormente
-	- Gera o PDF desse processo
+	- Gera o PDF desse processo.
 	Cuidado com exagero no teste. Essa operação gera forte gargalo
 
 - **Cenário 005 - Anotação Registrar**
@@ -183,3 +187,4 @@ Faça uma leitura do arquivo testProperties.prop.example pois lá tem as informa
 
 Pode usar a parte de issue aqui do projeto no github.
 Contribuição pode enviar pull-requests
+
