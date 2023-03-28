@@ -7,36 +7,49 @@
 # - qtdUsers: usuarios simultaneos
 # - rampup: tempo para atingir essa qtd acima
 # - loopCount: repeticoes q cada usuario vai fazer nesse cenario
+# - threadDuration: Duracao em segundos que o cenario vai se manter rodando caso n acabe as repeticoes acima
+#- startupDelay: Duracao em segundos que o cenario vai esperar antes de iniciar (esperar cadastrar procs, por ex)
 
 # Cenario001
 qtdUsers_001=2
 rampup_001=30
 loopCount_001=5
+threadDuration_001=1200
 
 # Cenario002
 qtdUsers_002=5
 rampup_002=180
 loopCount_002=5
+threadDuration_002=1200
+startupDelay_002=180
 
 # Cenario003
-qtdUsers_003=20
+qtdUsers_003=2
 rampup_003=120
 loopCount_003=1
+threadDuration_003=1200
+startupDelay_003=180
 
-# Cenario004
-qtdUsers_004=5
+# Cenario004 - gerarpdf maior gargalo no app
+qtdUsers_004=2
 rampup_004=120
 loopCount_004=1
+threadDuration_004=1200
+startupDelay_004=180
 
 # Cenario005
-qtdUsers_005=5
+qtdUsers_005=2
 rampup_005=60
 loopCount_005=1
+threadDuration_005=1200
+startupDelay_005=180
 
 # Cenario006
 qtdUsers_006=5
 rampup_006=180
 loopCount_006=5
+threadDuration_006=1200
+startupDelay_006=400
 
 ####################################
 # propriedades do ambiente
@@ -55,8 +68,8 @@ loopCount_006=5
 # bolCadProc_selecionarInteressado: Informe se eh para selecionar contatos aleatorios como interessado no cadastro de processos. Abre a tela de interessados e pega aleatoriamente
 # CadProc_qtdDocsInternos: Qtd de Documentos Internos a serem criados durante o cadastro
 # CadProc_qtdDocsExternos:  Coloque no dir upload_files, os pdfs com tamanhos variados, o teste rancomiza de   sobe aleatorio
-# bolKeepRuntimeAssets:     mantem os arquivos de runtime salvos mesmo depois do teste ser parado ou acabar. Isso para permitir rodar o cenario 006 isoladamente
-#-------                    para pesquisar no solr. Pois precisa de procs criados a pelo menos 300segs para pesquisar
+# bolKeepRuntimeAssets:     mantem os arquivos de runtime salvos mesmo depois do teste ser parado ou acabar. Isso para permitir rodar o cenario 002 a 006 isoladamente
+#-------                    cenario006 precisa de um tempo para pesquisar no solr. Pois precisa de procs criados a pelo menos 300segs para indexar
 # bolRodarAssets: deixe false ate segunda ordem aguardando definicao sei vs super. Caso o valor seja true, entao vai enviar para o teste, alem dos phps, os assets, js, css, gif, etc. Caso queira estressar o servico de cache entao desabilite o Http Cache Manager.
 
 # VALORES
