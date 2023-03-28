@@ -7,36 +7,49 @@
 # - qtdUsers: usuarios simultaneos
 # - rampup: tempo para atingir essa qtd acima
 # - loopCount: repeticoes q cada usuario vai fazer nesse cenario
+# - threadDuration: Duracao em segundos que o cenario vai se manter rodando caso n acabe as repeticoes acima
+#- startupDelay: Duracao em segundos que o cenario vai esperar antes de iniciar (esperar cadastrar procs, por ex)
 
 # Cenario001
 qtdUsers_001=2
 rampup_001=30
 loopCount_001=5
+threadDuration_001=1200
 
 # Cenario002
 qtdUsers_002=5
 rampup_002=180
 loopCount_002=5
+threadDuration_002=1200
+startupDelay_002=180
 
 # Cenario003
-qtdUsers_003=20
+qtdUsers_003=2
 rampup_003=120
 loopCount_003=1
+threadDuration_003=1200
+startupDelay_003=180
 
 # Cenario004
-qtdUsers_004=5
+qtdUsers_004=2
 rampup_004=120
 loopCount_004=1
+threadDuration_004=1200
+startupDelay_004=180
 
 # Cenario005
-qtdUsers_005=5
+qtdUsers_005=2
 rampup_005=60
 loopCount_005=1
+threadDuration_005=1200
+startupDelay_005=180
 
 # Cenario006
 qtdUsers_006=5
 rampup_006=180
 loopCount_006=5
+threadDuration_006=1200
+startupDelay_006=400
 
 ####################################
 # propriedades do ambiente
