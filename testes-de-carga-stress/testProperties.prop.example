@@ -68,8 +68,8 @@ startupDelay_006=400
 # bolCadProc_selecionarInteressado: Informe se eh para selecionar contatos aleatorios como interessado no cadastro de processos. Abre a tela de interessados e pega aleatoriamente
 # CadProc_qtdDocsInternos: Qtd de Documentos Internos a serem criados durante o cadastro
 # CadProc_qtdDocsExternos:  Coloque no dir upload_files, os pdfs com tamanhos variados, o teste rancomiza de   sobe aleatorio
-# bolKeepRuntimeAssets:     mantem os arquivos de runtime salvos mesmo depois do teste ser parado ou acabar. Isso para permitir rodar o cenario 006 isoladamente
-#-------                    para pesquisar no solr. Pois precisa de procs criados a pelo menos 300segs para pesquisar
+# bolKeepRuntimeAssets:     mantem os arquivos de runtime salvos mesmo depois do teste ser parado ou acabar. Isso para permitir rodar o cenario 002 a 006 isoladamente
+#-------                    cenario006 precisa de um tempo para pesquisar no solr. Pois precisa de procs criados a pelo menos 300segs para indexar
 # bolRodarAssets: deixe false ate segunda ordem aguardando definicao sei vs super. Caso o valor seja true, entao vai enviar para o teste, alem dos phps, os assets, js, css, gif, etc. Caso queira estressar o servico de cache entao desabilite o Http Cache Manager.
 
 # VALORES
