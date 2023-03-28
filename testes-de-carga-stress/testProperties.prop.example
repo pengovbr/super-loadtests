@@ -30,7 +30,7 @@ loopCount_003=1
 threadDuration_003=1200
 startupDelay_003=180
 
-# Cenario004
+# Cenario004 - gerarpdf maior gargalo no app
 qtdUsers_004=2
 rampup_004=120
 loopCount_004=1
