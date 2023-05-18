@@ -63,8 +63,12 @@ startupDelay_006=400
 # --------------------  informe sempre multiplo de 5. A qtde de usuarios será esse x 20
 # usuarioAdminLogin
 # usuarioAdminSenha:    usuario e senha para precarga
+# idOrgao:              id do Orgao. Default geralmente 0 (zero), mas em algumas situacoes pode ter outro valor. Verifique o id na tela de login clicando com o botao direito e inspecionar no browser
+# siglaHierarquia:      sigla da Hierarquia. Geralmente SEI, mas caso sua hierarquiia seja outra pegue o sigla na tela do sip -- Hierarquias -- Montar
 
-# id_series_cadastro:   id dos tipos de docs q serao cadastrados. N passe qualquer tipo. Veja a doc. Apenas tipos com a quarta secao editaveis
+# id_series_cadastro:   id dos tipos de docs q serao cadastrados. N passe qualquer tipo. Apenas tipos com 5 secoes (4 mais a assinatura) e a terceira secao editavel
+#                       na base de referencia temos 2 exemplos com esses modelos: ato e abertura de procedimento licitatorio (3 e 260 respectivamente)
+#                       escolha os tipos e separe-os com underline (_). O teste vai randomizar entre esses tipos informados durante a criacao dos docs
 # bolCadProc_selecionarInteressado: Informe se eh para selecionar contatos aleatorios como interessado no cadastro de processos. Abre a tela de interessados e pega aleatoriamente
 # CadProc_qtdDocsInternos: Qtd de Documentos Internos a serem criados durante o cadastro
 # CadProc_qtdDocsExternos:  Coloque no dir upload_files, os pdfs com tamanhos variados, o teste rancomiza de   sobe aleatorio
@@ -79,6 +83,9 @@ portinhola=443
 qtdUnidadesInicial=10
 usuarioAdminLogin=teste
 usuarioAdminSenha=teste
+idOrgao=0
+siglaHierarquia=SEI
+id_series_cadastro=3_260
 bolCadProc_selecionarInteressado=false
 CadProc_qtdDocsInternos=2
 CadProc_qtdDocsExternos=2
