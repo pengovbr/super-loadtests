@@ -38,6 +38,15 @@ Arquivo jmeter: PreCargaTestPlan.jmx
 
 **Atenção, o teste vai criar unidades e usuários com a nomenclatua acima na base de dados. Tenha isso em mente**
 
+**Atenção, a configuracao de unidades no SEI requer que o usuário informado na carga tenha permissão para alterar contatos das unidades**
+```
+Verifique isso no SEI em Administracao -> Unidades -> Listar. Selecione uma unidade e verifique se ao clicar em alterar contato, os campos de endereço estão habilitados
+
+Verifique no SEI em Administração -> Contatos -> Tipo -> Listar se a unidade que o usuário está logado corresponde a alguma das unidades informadas no campo "Unidades administradoras deste tipo"
+
+Caso o usuário informado não tenha permissão para alterar os contatos das unidades, ou se ele estiver logado em uma unidade sem permissão de alterar as outras (ver parágrafo acima), então o teste falhará.
+```
+
 
 ### Teste de Carga
 
